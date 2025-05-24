@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const mockData = [
   {
@@ -43,28 +40,27 @@ export default function NumeroUtileCI() {
   );
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center">Numéro Utile CI</h1>
-      <Input
+    <div style={{ padding: '20px', maxWidth: '600px', margin: '0 auto', fontFamily: 'Arial' }}>
+      <h1 style={{ textAlign: 'center' }}>Numéro Utile CI</h1>
+      <input
+        type="text"
         placeholder="Rechercher un service ou une ville..."
         value={search}
         onChange={e => setSearch(e.target.value)}
-        className="mb-6"
+        style={{ width: '100%', padding: '10px', marginBottom: '20px' }}
       />
-      <div className="space-y-4">
-        {filteredData.map((item, index) => (
-          <Card key={index} className="shadow">
-            <CardContent className="p-4">
-              <h2 className="text-lg font-semibold">{item.nom}</h2>
-              <p className="text-sm text-gray-600">{item.categorie} - {item.localisation}</p>
-              <p className="mt-1">📞 <strong>{item.numero}</strong></p>
-              <p className="text-sm">{item.description}</p>
-              <p className="text-sm italic">{item.horaires}</p>
-              <Button className="mt-2">Appeler</Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      {filteredData.map((item, index) => (
+        <div key={index} style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}>
+          <h2>{item.nom}</h2>
+          <p><strong>Catégorie :</strong> {item.categorie} – {item.localisation}</p>
+          <p><strong>Numéro :</strong> {item.numero}</p>
+          <p>{item.description}</p>
+          <p><em>{item.horaires}</em></p>
+          <button style={{ marginTop: '10px' }} onClick={() => window.location.href = `tel:${item.numero}`}>
+            Appeler
+          </button>
+        </div>
+      ))}
     </div>
   );
 }
